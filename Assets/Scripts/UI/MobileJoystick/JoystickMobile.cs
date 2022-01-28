@@ -65,7 +65,7 @@ namespace Assets.Scripts.UI.MobileJoystick
             else if (_needFading)
             {
                 if ((_touchPoint - _allowedPosition).sqrMagnitude == 0f) _needFading = false;
-                return (Vector2.Lerp(_touchPoint, _allowedPosition, Time.deltaTime) - _touchPoint) / _allowedRadius;
+                return (Vector2.MoveTowards(_touchPoint, _allowedPosition, Time.deltaTime) - _touchPoint) / _allowedRadius;
 
             }
             else return Vector2.zero;
