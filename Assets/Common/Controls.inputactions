@@ -1,0 +1,102 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "b9e6fc1b-54ac-48e4-abb1-2460334b62ab",
+            "actions": [
+                {
+                    "name": "TapPosition",
+                    "type": "PassThrough",
+                    "id": "1e26f756-abfd-4090-9fb9-300795471ea0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TapPressed",
+                    "type": "PassThrough",
+                    "id": "97a3e9d4-222a-454b-8035-f49dee562e13",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TapReleased",
+                    "type": "PassThrough",
+                    "id": "108d3193-7215-4e79-aeb0-afb0d28c4ba5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TapDelta",
+                    "type": "PassThrough",
+                    "id": "d0906a61-8af8-45f6-bcec-d1047c548dbf",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cab6d351-375e-489e-8b01-7ab7c12295e8",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touchscreen",
+                    "action": "TapPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f314cb97-07a9-4e98-b56a-47197a2b536b",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Touchscreen",
+                    "action": "TapPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4e40997-9c6a-40d1-ae29-dd78b7769ca0",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Touchscreen",
+                    "action": "TapReleased",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ef4ad9c-8df3-4cb0-a59e-6059c9757b10",
+                    "path": "<Touchscreen>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touchscreen",
+                    "action": "TapDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Touchscreen",
+            "bindingGroup": "Touchscreen",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
