@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _pressed = false;
     [SerializeField] private float _speed = 1;
+    [SerializeField] private float _lockRotationSpeed = 1;
 
     public void Move(Vector2 moveInput)
     {
@@ -24,7 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private void Rotate(Vector2 moveInput)
     {
-        _characterController.transform.rotation = Quaternion.LookRotation(new Vector3(moveInput.x, 0f, moveInput.y), Vector3.up);
+        Quaternion targerRotation = Quaternion.LookRotation(new Vector3(moveInput.x, 0f, moveInput.y), Vector3.up);
+        _characterController.transform.rotation = Quaternion.Slerp(_characterController.transform.rotation, targerRotation, _lockRotationSpeed * Time.deltaTime);
     }
 
     public void ApplyPress()

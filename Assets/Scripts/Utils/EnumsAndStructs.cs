@@ -1,4 +1,4 @@
-﻿namespace Assets.Utils
+﻿namespace Assets.Scripts.Utils
 {
     public enum ManipulationMode
     {

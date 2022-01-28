@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Utils
+namespace Assets.Scripts.Utils
 {
     public class SmoothFollowPosition : MonoBehaviour
     {
