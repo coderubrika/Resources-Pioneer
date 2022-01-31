@@ -28,7 +28,7 @@ namespace Assets.Scripts.Tests
         {
             get
             {
-                return transform.position - _areaSize / 2 + Vector3.forward * _areaSize.z;
+                return transform.position;
             }
         }
 
@@ -37,22 +37,22 @@ namespace Assets.Scripts.Tests
 
         private void OnDrawGizmos()
         {
+            Vector3 cubePosition = transform.position + _areaSize / 2f - Vector3.forward * _areaSize.z;
+
             Gizmos.color = new Color(0, 1, 0, 0.3f);
-            Gizmos.DrawCube(transform.position, _areaSize);
+            Gizmos.DrawCube(cubePosition, _areaSize);
 
             Gizmos.color = new Color(0, 1, 1, 0.7f);
             Vector3 bottomScale = _areaSize;
             bottomScale.y = 0.01f;
-            Vector3 bottomPosition = transform.position;
+            Vector3 bottomPosition = cubePosition;
             bottomPosition.y -= _areaSize.y / 2;
             Gizmos.DrawCube(bottomPosition, bottomScale);
 
             Gizmos.color = new Color(1f, 1f, 0f, 0.9f);
             Gizmos.DrawCube(_startPoint, Vector3.one * 0.03f);
 
-            Vector3 start = transform.position - _areaSize / 2;
-
-            Gizmos.color = new Color(1f, 0f, 0f, 0.8f);
+            Vector3 start = transform.position - Vector3.forward * _areaSize.z;
 
             for (int x = 1; x <= _maxCountObj.x; x++)
             {
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Tests
                         float zDim = start.z + _sizeObj.z * z + _step.z * (z - 1) - _sizeObj.z / 2f;
 
                         Vector3 center = new Vector3(xDim, yDim, zDim);
-
+                        Gizmos.color = new Color(0f, 0.8f, 0f, 1f);
                         Gizmos.DrawCube(center, _sizeObj);
                     }
                 }
