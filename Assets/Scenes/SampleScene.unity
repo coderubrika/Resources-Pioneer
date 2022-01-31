@@ -156,26 +156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _generationRate: 0.4
-  _maxWidth: 0.25
-  _maxHeight: 0.25
-  _maxDepth: 0.25
-  _widthStep: 0.07
-  _heightStep: 0.07
-  _depthStep: 0.07
-  _productionPoint: {fileID: 941619774}
-  _productionPrefab: {fileID: 8132922075319381890, guid: 0883d316ea0c800469840f04f56591ed, type: 3}
-  _maxCountOfProduct: 0
-  _currentCountOfProduct: 0
-  _currentWidthProd: 0
-  _currentHeightProd: 0
-  _currentDepthProd: 0
-  _resourcesPoint: {fileID: 0}
-  __resourcePrefab: {fileID: 0}
-  _maxCountOfResources: 0
-  _currentCountOfResources: 0
-  _currentWidthRes: 0
-  _currentHeightRes: 0
-  _currentDepthRes: 0
+  _resourcePrefab: {fileID: 0}
+  _birthOrigin: {fileID: 0}
+  _productPlatform: {fileID: 0}
 --- !u!65 &226270567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -640,26 +623,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _generationRate: 0.4
-  _maxWidth: 0.25
-  _maxHeight: 0.25
-  _maxDepth: 0.25
-  _widthStep: 0.07
-  _heightStep: 0.07
-  _depthStep: 0.07
-  _productionPoint: {fileID: 1335742160}
-  _productionPrefab: {fileID: 8132922075319381890, guid: 0883d316ea0c800469840f04f56591ed, type: 3}
-  _maxCountOfProduct: 0
-  _currentCountOfProduct: 0
-  _currentWidthProd: 0
-  _currentHeightProd: 0
-  _currentDepthProd: 0
-  _resourcesPoint: {fileID: 0}
-  __resourcePrefab: {fileID: 0}
-  _maxCountOfResources: 0
-  _currentCountOfResources: 0
-  _currentWidthRes: 0
-  _currentHeightRes: 0
-  _currentDepthRes: 0
+  _resourcePrefab: {fileID: 0}
+  _birthOrigin: {fileID: 0}
+  _productPlatform: {fileID: 0}
 --- !u!65 &573317757
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -768,7 +734,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxCountObj: {x: 4, y: 4, z: 5}
   _sizeObj: {x: 0.1, y: 0.2, z: 0.1}
-  _step: {x: 0.01, y: 0.01, z: 0.01}
+  _step: {x: 0.01, y: 0.01, z: -0.78}
+  _showBlocksGizmo: 1
+  _showBlockGizmo: 0
+  _showStartGizmo: 0
+  _showPlatformGizmo: 1
+  _maxCount: 79
 --- !u!4 &655774522
 Transform:
   m_ObjectHideFlags: 0
@@ -1196,26 +1167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _generationRate: 0.4
-  _maxWidth: 0.25
-  _maxHeight: 0.25
-  _maxDepth: 0.25
-  _widthStep: 0.07
-  _heightStep: 0.07
-  _depthStep: 0.07
-  _productionPoint: {fileID: 1824918770}
-  _productionPrefab: {fileID: 8132922075319381890, guid: 0883d316ea0c800469840f04f56591ed, type: 3}
-  _maxCountOfProduct: 0
-  _currentCountOfProduct: 0
-  _currentWidthProd: 0
-  _currentHeightProd: 0
-  _currentDepthProd: 0
-  _resourcesPoint: {fileID: 0}
-  __resourcePrefab: {fileID: 0}
-  _maxCountOfResources: 0
-  _currentCountOfResources: 0
-  _currentWidthRes: 0
-  _currentHeightRes: 0
-  _currentDepthRes: 0
+  _resourcePrefab: {fileID: 0}
+  _birthOrigin: {fileID: 0}
+  _productPlatform: {fileID: 0}
 --- !u!65 &904549305
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1746,7 +1700,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxCountObj: {x: 4, y: 4, z: 5}
   _sizeObj: {x: 0.1, y: 0.2, z: 0.1}
-  _step: {x: 0.01, y: 0.01, z: 0.01}
+  _step: {x: 0.01, y: 0.01, z: -0.78}
+  _showBlocksGizmo: 1
+  _showBlockGizmo: 0
+  _showStartGizmo: 0
+  _showPlatformGizmo: 1
+  _maxCount: 79
 --- !u!4 &1745606625
 Transform:
   m_ObjectHideFlags: 0

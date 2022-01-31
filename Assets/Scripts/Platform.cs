@@ -15,27 +15,40 @@ namespace Assets.Scripts
         [SerializeField] private bool _showBlockGizmo = false;
         [SerializeField] private bool _showStartGizmo = false;
         [SerializeField] private bool _showPlatformGizmo = true;
+        
+        [Min(0)]
+        [SerializeField] private int _maxCount = 1;
 
-        private Queue<Vector3> _freePlaces;
-        private List<Vector3> _busyPlaces;
+        private Queue<Vector3> _freePoints;
 
         private void Awake()
         {
-            _freePlaces = new List<Vector3>(GetCenters());
-            _busyPlaces = new List<Vector3>();
+            _freePoints = new Queue<Vector3>(GetPoints());
         }
 
         public bool Put(Resource resource)
         {
-            if (resource.Size != _sizeObj) return false;
-            if (_freePlaces.Count == 0) return false;
+            if (resource.transform.localScale != _sizeObj) return false;
+            if (_freePoints.Count == 0) return false;
 
-            _freePlaces.Dequeue();
+            resource.Grab(this);
+            return true;
+
         }
 
-        public Resource Get()
+        public bool HasFreePoints()
         {
-            return null;
+            return _freePoints.Count > 0;
+        }
+
+        public Vector3 GetFreePoint()
+        {
+            return _freePoints.Dequeue();
+        }
+
+        public void GiveBackToFreePoints(Vector3 point)
+        {
+            _freePoints.Enqueue(point);
         }
 
         private Vector3 _areaSize
@@ -59,29 +72,45 @@ namespace Assets.Scripts
             }
         }
 
-        private Vector3[] GetCenters()
+        private Vector3[] GetPoints(bool full = false)
         {
-            Vector3[] centers = new Vector3[_maxCountObj.x * _maxCountObj.y * _maxCountObj.z];
+            _maxCount = Mathf.Clamp(_maxCount, 0, _maxCountObj.x * _maxCountObj.y * _maxCountObj.z);
+            int maxCount = full ? _maxCountObj.x * _maxCountObj.y * _maxCountObj.z : _maxCount;
+
+            if (maxCount == 0) return new Vector3[0];
+
+            Vector3[] centers = new Vector3[maxCount];
 
             int index = 0;
 
-            for (int x = 1; x <= _maxCountObj.x; x++)
+            for (int y = 1; y <= _maxCountObj.y; y++)
             {
-                for (int y = 1; y <= _maxCountObj.y; y++)
+                for (int z = 1; z <= _maxCountObj.z; z++)
                 {
-                    for (int z = 1; z <= _maxCountObj.z; z++)
+                    for (int x = 1; x <= _maxCountObj.x; x++)
                     {
                         float xDim = _startPoint.x + _sizeObj.x * x + _step.x * (x - 1) - _sizeObj.x / 2f;
                         float yDim = _startPoint.y + _sizeObj.y * y + _step.y * (y - 1) - _sizeObj.y / 2f;
-                        float zDim = _startPoint.z - _sizeObj.z * z + _step.z * (z - 1) + _sizeObj.z / 2f;
+                        float zDim = _startPoint.z - (_sizeObj.z * z + _step.z * (z - 1) - _sizeObj.z / 2f);
 
                         centers[index] = new Vector3(xDim, yDim, zDim);
                         index += 1;
+                        if (index == maxCount) return centers;
                     }
                 }
             }
 
             return centers;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+
         }
 
         private void OnDrawGizmos()
@@ -112,7 +141,7 @@ namespace Assets.Scripts
 
             if (_showBlocksGizmo)
             {
-                Vector3[] centers = GetCenters();
+                Vector3[] centers = GetPoints();
 
                 foreach (Vector3 center in centers)
                 {
