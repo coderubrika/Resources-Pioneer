@@ -7,7 +7,7 @@ namespace Assets.Scripts.Utils
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(MonoHooks))]
-    public class LookAt : MonoBehaviour
+    public class LookAtDebag : MonoBehaviour
     {
         [SerializeField] private TransformConfig _transformConfig;
 
