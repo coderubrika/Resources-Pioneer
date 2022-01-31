@@ -24,9 +24,15 @@ namespace Assets.Scripts.Tests
         [SerializeField] private int _currentCountOfResources;
         [SerializeField] private float _currentWidthRes = 0f, _currentHeightRes = 0f, _currentDepthRes = 0f;
 
+        /*
+         с этим уже работать невозможно, потому как слишком много полей и полный фарф, поэтому для начала я пожалуй
+        подготовлю 3 здания и 3 префаба 
+         */
+
         private void Start()
         {
-            // здесь можно запустить корутину
+            _currentCountOfResources = 100;
+            var _  = CreateProduction();
         }
 
         private async Task CreateProduction()
@@ -39,6 +45,11 @@ namespace Assets.Scripts.Tests
                     _productionPoint.position + GetProductPositionDelta(), 
                     Quaternion.identity
                 );
+                _currentCountOfResources -= 1;
+                await Task.Delay((int)(_generationRate * 1000));
+
+                if (!Application.isPlaying) break;
+
             }
         }
 
@@ -52,15 +63,23 @@ namespace Assets.Scripts.Tests
                 {
                     _currentDepthProd = 0f;
 
-                    _currentHeightProd += _depthStep;
+
+                    _currentDepthProd += _depthStep;
                 }
-                else _currentDepthProd += _depthStep;
+                else
+                {
+                    _currentHeightProd += _heightStep;
+                    return new Vector3(_currentWidthProd, _currentHeightProd, _currentDepthProd);
+                }
 
             }
-            else _currentWidthProd += _widthStep;
+            else
+            {
+                _currentWidthProd += _widthStep;
+                return new Vector3(_currentWidthProd, _currentHeightProd, _currentDepthProd);
+            }
 
-            Vector3 delta = new Vector3(_currentWidthProd, _currentHeightProd, _currentDepthProd);
-            return delta;
+            return new Vector3(_currentWidthProd, _currentHeightProd, _currentDepthProd);
         }
     }
 }
