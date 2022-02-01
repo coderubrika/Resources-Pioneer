@@ -13,6 +13,7 @@ namespace Assets.Scripts.Utils
 
         [SerializeField] private Transform _destination;
         [SerializeField] bool _needLookAt = false;
+        [SerializeField] bool _applyConfigOnAwake = false;
         [SerializeField] private UpdateMode _updateMode = UpdateMode.Update;
 
         private MonoHooks _monoHooks;
@@ -31,8 +32,11 @@ namespace Assets.Scripts.Utils
 
             }, monoHooksEnum);
 
-            _monoHooks.AddActionToHook(() => { transform.rotation = _transformConfig.Rotation; }, 
+            if (_applyConfigOnAwake)
+            {
+                _monoHooks.AddActionToHook(() => { transform.rotation = _transformConfig.Rotation; },
                 MonoHooksNoParamEnum.Awake);
+            }
         }
     }
 }

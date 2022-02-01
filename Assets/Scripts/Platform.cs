@@ -26,10 +26,12 @@ namespace Assets.Scripts
             _freePoints = new Queue<Vector3>(GetPoints());
         }
 
-        public bool Put(Resource resource)
+        public virtual bool Put(Resource resource)
         {
             if (resource.transform.localScale != _sizeObj) return false;
             if (_freePoints.Count == 0) return false;
+
+            resource.transform.SetParent(transform);
 
             resource.Grab(this);
             return true;
@@ -71,6 +73,8 @@ namespace Assets.Scripts
                 return transform.position;
             }
         }
+        
+        // это должны быть локальные координаты
 
         private Vector3[] GetPoints(bool full = false)
         {
@@ -93,7 +97,8 @@ namespace Assets.Scripts
                         float yDim = _startPoint.y + _sizeObj.y * y + _step.y * (y - 1) - _sizeObj.y / 2f;
                         float zDim = _startPoint.z - (_sizeObj.z * z + _step.z * (z - 1) - _sizeObj.z / 2f);
 
-                        centers[index] = new Vector3(xDim, yDim, zDim);
+                        centers[index] = transform.InverseTransformPoint(new Vector3(xDim, yDim, zDim));
+
                         index += 1;
                         if (index == maxCount) return centers;
                     }

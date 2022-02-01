@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterController _characterController;
+
+    [SerializeField] private Platform _platform;
 
     private bool _pressed = false;
     [SerializeField] private float _speed = 1;
@@ -37,5 +40,15 @@ public class PlayerController : MonoBehaviour
     public void ApplyRelease()
     {
         _pressed = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Resource resource = other.GetComponent<Resource>();
+
+        if (resource && _platform.HasFreePoints())
+        {
+            _platform.Put(resource);
+        }
     }
 }

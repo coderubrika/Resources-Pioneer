@@ -6,10 +6,19 @@ namespace Assets.Scripts.Tests
     public class Plant : MonoBehaviour
     {
         [SerializeField] private float _generationRate = 1f;
+        private float _timer = 0f;
+
         [SerializeField] private Resource _resourcePrefab;
         [SerializeField] private Transform _birthOrigin;
 
         [SerializeField] private Platform _productPlatform;
+
+        public bool ResourceDelivered = false;
+
+        private bool OnResourceDeliveredAndTimeIsUp()
+        {
+            return ResourceDelivered && _timer >= _generationRate;
+        }
 
         private void Start()
         {
@@ -25,12 +34,31 @@ namespace Assets.Scripts.Tests
                     GameObject product = Instantiate(_resourcePrefab.gameObject, _birthOrigin.position, 
                         _birthOrigin.rotation, _birthOrigin);
 
-                    _productPlatform.Put(product.GetComponent<Resource>());
-                }
+                    Resource resource = product.GetComponent<Resource>();
 
-                yield return new WaitForSeconds(_generationRate);
+                    ResourceDelivered = false;
+                    
+                    resource.Init(this, _generationRate);
+
+                    _productPlatform.Put(resource);
+
+                    yield return new WaitUntil(OnResourceDeliveredAndTimeIsUp);
+
+                    _timer = 0f;
+                }
+                else yield return null;
+
+
             }
         }
-        
+
+        private void Update()
+        {
+            if (ResourceDelivered)
+            {
+                _timer += Time.deltaTime;
+            }
+        }
+
     }
 }

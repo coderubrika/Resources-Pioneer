@@ -27,4 +27,6 @@
         public TKey Key;
         public TValue Value;
     }
+
+    public enum ResourceType { A, B, C};
 }
