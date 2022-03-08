@@ -9,10 +9,14 @@ namespace Assets.Scripts.UI.MobileJoystick
 {
     public class JoystickMobile : MonoBehaviour
     {
+        // тут нужно радикально переписывать всю логику
+
         [SerializeField] private UnityEvent _onShowSensor;
         [SerializeField] private UnityEvent _onHideSensor;
+        
         public UnityEvent<Vector2> OnJoystickAffection;
-
+        public UnityEvent<float> OnAffectionForce;
+            
         [SerializeField] private float _allowedRadius;
 
         [SerializeField] private InputActionsCatcher _inputActionsCatcher;
@@ -20,7 +24,6 @@ namespace Assets.Scripts.UI.MobileJoystick
         private Vector2 _touchPoint = Vector2.zero;
 
         private Vector2 _allowedPosition = Vector2.zero;
-        private float _allowedPart = 0f;
 
         private bool _needDetect = false;
         private bool _needFading = false;
@@ -44,40 +47,36 @@ namespace Assets.Scripts.UI.MobileJoystick
             });
         }
 
-        private Vector2 CalcJoystickAffection()
+        private void CalcJoystickAffection()
         {
             if (_needDetect)
             {
-                Vector2 offset = (_inputActionsCatcher.Position - _touchPoint);
+                Vector2 normalizedOffset = (_inputActionsCatcher.Position - _touchPoint) / _allowedRadius;
 
-                float magnitude = offset.magnitude;
-                _allowedPart = _allowedRadius / magnitude;
-                
-                if (_allowedPart < 1)
+                float magnitude = normalizedOffset.magnitude;
+
+                if (magnitude <= 1f)
                 {
-                    _allowedPosition = Vector2.Lerp(_touchPoint, _inputActionsCatcher.Position, _allowedPart);
+                    OnJoystickAffection.Invoke(normalizedOffset);
+                    OnAffectionForce.Invoke(magnitude);
                 }
-                else _allowedPosition = _inputActionsCatcher.Position;
-
-                return (_allowedPosition - _touchPoint) / _allowedRadius;
+                else
+                {
+                    OnJoystickAffection.Invoke(normalizedOffset / magnitude);
+                    OnAffectionForce.Invoke(1f);
+                }
             }
-
-            else if (_needFading)
+            else
             {
-                if ((_touchPoint - _allowedPosition).sqrMagnitude == 0f) _needFading = false;
-                return (Vector2.MoveTowards(_touchPoint, _allowedPosition, Time.deltaTime) - _touchPoint) / _allowedRadius;
-
+                OnJoystickAffection.Invoke(Vector2.zero);
+                OnAffectionForce.Invoke(0f);
             }
-            else return Vector2.zero;
         }
 
         
-
         private void Update()
         {
-            Vector2 affection = CalcJoystickAffection();
-            OnJoystickAffection.Invoke(affection);
-            
+            CalcJoystickAffection();
         }
 
     }

@@ -17,6 +17,7 @@ namespace Assets.Scripts.Containers
             PlayerController playerController = instance.transform.GetComponentInChildren<PlayerController>();
 
             _joystickMobile.OnJoystickAffection.AddListener(playerController.Move);
+            _joystickMobile.OnAffectionForce.AddListener(playerController.ApplyMoveAffection);
             _inputActionsCatcher.OnPress.AddListener(playerController.ApplyPress);
             _inputActionsCatcher.OnRelease.AddListener(playerController.ApplyRelease);
         }

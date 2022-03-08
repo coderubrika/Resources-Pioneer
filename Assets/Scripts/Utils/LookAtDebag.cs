@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Scripts.Utils
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(MonoHooks))]
+    [RequireComponent(typeof(MonoHook))]
     public class LookAtDebag : MonoBehaviour
     {
         [SerializeField] private TransformConfig _transformConfig;
@@ -16,13 +16,13 @@ namespace Assets.Scripts.Utils
         [SerializeField] bool _applyConfigOnAwake = false;
         [SerializeField] private UpdateMode _updateMode = UpdateMode.Update;
 
-        private MonoHooks _monoHooks;
+        private MonoHook _monoHooks;
 
         private void Awake()
         {
             Enum.TryParse(_updateMode.ToString(), out MonoHooksNoParamEnum monoHooksEnum);
 
-            _monoHooks = GetComponent<MonoHooks>();
+            _monoHooks = GetComponent<MonoHook>();
 
 
             _monoHooks.AddActionToHook(() =>
